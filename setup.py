@@ -2,6 +2,9 @@ import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
+    
+with open(join(dirname(__file__), 'requirements.txt')) as f:
+    required = f.read().splitlines()    
 
 setuptools.setup(
     name="dnsrecon",
@@ -12,6 +15,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/darkoperator/dnsrecon",
+    install_requires=required,
     packages=setuptools.find_packages(),
     python_requires='>=3.6',
     scripts=['bin/dnsrecon'],
