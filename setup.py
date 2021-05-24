@@ -1,5 +1,7 @@
 import setuptools
 
+from os.path import dirname, join
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
     
