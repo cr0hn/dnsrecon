@@ -16,12 +16,12 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-from lxml import etree
-from lib.msf_print import *
-
-
 from urllib.request import urlopen, Request
 from urllib.error import URLError, HTTPError
+
+from lxml import etree
+from dnsrecon.lib.msf_print import *
+
 
 
 def scrape_crtsh(dom):

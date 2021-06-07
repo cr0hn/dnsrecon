@@ -16,8 +16,9 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import re
-from netaddr import *
 import socket
+
+from netaddr import *
 
 WHOIS_PORT_NUMBER = 43
 WHOIS_RECEIVE_BUFFER_SIZE = 4096

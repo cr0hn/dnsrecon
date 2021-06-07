@@ -29,34 +29,43 @@ DNSRecon http://www.darkoperator.com
 requires dnspython http://www.dnspython.org/
 requires netaddr https://github.com/drkjam/netaddr/
 
+This version of dnsrecon is an installable version of them, maintained by:
+
+Daniel García (cr0hn)
+
 """
 
-from argparse import ArgumentParser, RawTextHelpFormatter
 import os
-from string import ascii_letters, digits
+import json
 import sqlite3
-import datetime
 import netaddr
-from random import SystemRandom
+import datetime
+import os.path as op
+
 from xml.dom import minidom
+from random import SystemRandom
 from xml.etree import ElementTree
+from string import ascii_letters, digits
 from xml.etree.ElementTree import Element
-import dns.message
+from argparse import ArgumentParser, RawTextHelpFormatter
+
+import dns.zone
 import dns.query
+import dns.rdata
+import dns.flags
+import dns.message
 import dns.rdatatype
 import dns.resolver
 import dns.reversename
-import dns.zone
-import dns.rdata
-import dns.flags
-import json
+
 from dns.dnssec import algorithm_to_text
-from lib.crtenum import scrape_crtsh
-from lib.bingenum import *
-from lib.yandexenum import *
-from lib.whois import *
-from lib.dnshelper import DnsHelper
-from lib.msf_print import *
+
+from dnsrecon.lib.whois import *
+from dnsrecon.lib.bingenum import *
+from dnsrecon.lib.msf_print import *
+from dnsrecon.lib.yandexenum import *
+from dnsrecon.lib.dnshelper import DnsHelper
+from dnsrecon.lib.crtenum import scrape_crtsh
 
 from concurrent import futures
 
@@ -66,7 +75,10 @@ brtdata = []
 CONFIG = {
     "disable_check_recursion": False,
     "disable_check_bindversion": False
+
 }
+
+HERE = os.path.dirname(__file__)
 
 
 # Function Definitions
@@ -1567,8 +1579,12 @@ Possible types:
     dictionary = ""
     if any(dictionary_required):
         # we generate a list of possible dictionary files
-        script_dir = os.path.dirname(os.path.realpath(__file__)) + os.sep
-        dictionaries = ['/etc/dnsrecon/namelist.txt', script_dir + 'namelist.txt']
+        dictionaries = [
+            op.join(HERE, "namelist.txt"),
+            op.join(
+                op.dirname(os.path.realpath(__file__)), 'namelist.txt'
+            )
+        ]
 
         # if the user has provided a custom dictionary file,
         # we insert it as first entry of the list

@@ -17,11 +17,13 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-import urllib
 import re
 import time
-from lib.msf_print import *
+import urllib
+
 import urllib.request
+
+from .msf_print import *
 
 url_opener = urllib.request.FancyURLopener
 
